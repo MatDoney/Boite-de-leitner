@@ -38,14 +38,31 @@ const startRevision = () => {
   max-width: 600px;
   margin: auto;
   text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
 .start-button {
   margin-top: 20px;
-  padding: 10px 15px;
-  background-color: #3498db;
+  padding: 12px 20px;
+  background-color: #007bff;
   color: white;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.start-button:hover {
+  background-color: #0056b3;
 }
 </style>
