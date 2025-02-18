@@ -7,6 +7,7 @@ import {RouterLink} from "vue-router";
 
       <nav>
         <RouterLink to="/">🏚️</RouterLink>
+        <RouterLink to="/cardCreation">+️</RouterLink>
         <RouterLink to="/about">🙍‍♂️</RouterLink>
       </nav>
   </header>

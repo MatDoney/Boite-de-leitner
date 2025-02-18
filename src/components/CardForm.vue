@@ -1,18 +1,27 @@
 <script setup lang="ts">
+const props = defineProps<{
+  question: string;
+  reponse: string;
+}>();
+
 
 </script>
 
 <template>
   <div class="classCreation">
   <form class="card-form">
-    <h2>Création d'une carte</h2>
+    <h2>Carte</h2>
+    <div class="form-group">
+      <label for="theme">Thème :</label>
+      <select name="theme" id="theme" ></select>
+    </div>
     <div class="form-group">
       <label for="question">Question :</label>
-      <input id="question" type="text" placeholder="Entrez la question" />
+      <input id="question" type="text" placeholder="Entrez la question" :value=" question " />
     </div>
     <div class="form-group">
       <label for="reponse">Réponse :</label>
-      <textarea id="reponse" placeholder="Entrez la réponse"></textarea>
+      <textarea id="reponse" placeholder="Entrez la réponse">{{ reponse }}</textarea>
     </div>
     <div class="form-group">
       <label for="media">Image ou Audio :</label>
@@ -67,7 +76,8 @@
 
 /* Champs de saisie */
 .card-form input[type="text"],
-.card-form textarea {
+.card-form textarea,
+.card-form select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ddd;
