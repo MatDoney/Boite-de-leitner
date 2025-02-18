@@ -16,9 +16,16 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 
-const props = defineProps({
-  themes: Array
-})
+// Définir l'interface pour un thème
+interface Theme {
+  id: number;
+  name: string;
+}
+
+// Définir les props acceptées par le composant
+const props = defineProps<{
+  themes: Theme[]
+}>()
 </script>
 
 <style scoped>

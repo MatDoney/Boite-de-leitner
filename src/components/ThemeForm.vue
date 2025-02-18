@@ -21,14 +21,23 @@ import { ref, watchEffect } from 'vue'
 import { defineProps, defineEmits } from 'vue'
 import { useThemesStore } from '@/stores/themesStore'
 
-const props = defineProps({
-  categoryId: Number,
-  editMode: Boolean,
-  theme: Object
-})
+// Définir l'interface pour un thème
+interface Theme {
+  id: number;
+  name: string;
+}
 
+// Définir les props acceptées par le composant
+const props = defineProps<{
+  categoryId: number;
+  editMode: boolean;
+  theme: Theme | null;
+}>()
+
+// Définir les événements émis par le composant
 const emit = defineEmits()
 
+// Référence pour le nom du thème
 const themeName = ref('')
 
 // Si on est en mode édition, on pré-remplie le champ avec le nom du thème
@@ -40,18 +49,21 @@ watchEffect(() => {
   }
 })
 
+// Fonction pour soumettre le formulaire
 const submitForm = () => {
-  if (props.editMode) {
+  const themesStore = useThemesStore()
+  if (props.editMode && props.theme) {
     // Appeler l'action pour modifier le thème
-    useThemesStore().updateTheme(props.theme.id, themeName.value)
+    themesStore.updateTheme(props.theme.id, props.categoryId, themeName.value)
   } else {
     // Appeler l'action pour ajouter un nouveau thème
-    useThemesStore().addThemeToCategory(props.categoryId, themeName.value)
+    themesStore.addThemeToCategory(props.categoryId, themeName.value)
   }
 
   // Émettre un événement pour indiquer que le formulaire a été soumis
   emit('themeUpdated')
   themeName.value = ''
+  emit('cancelEdit') // Réinitialiser le mode édition
 }
 </script>
 

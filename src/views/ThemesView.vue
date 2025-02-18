@@ -1,21 +1,19 @@
 <template>
   <div>
-
- 
     <!-- Liste des thèmes -->
     <ThemeList
       :themes="themes"
       @edit="editTheme"
       @delete="removeTheme"
     />
-       <!-- Formulaire d'ajout de thème -->
-       <ThemeForm
+    <!-- Formulaire d'ajout de thème -->
+    <ThemeForm
       :categoryId="categoryId"
       :editMode="editMode"
       :theme="selectedTheme"
-      @themeUpdated="fetchThemes"
+      @themeUpdated="handleThemeUpdated"
+      @cancelEdit="cancelEdit"
     />
-
   </div>
 </template>
 
@@ -26,20 +24,42 @@ import { useRoute } from 'vue-router'
 import ThemeList from '@/components/ThemeList.vue'
 import ThemeForm from '@/components/ThemeForm.vue'
 
+// Définir l'interface pour un thème
+interface Theme {
+  id: number;
+  name: string;
+}
 
+// Récupérer la route actuelle
 const route = useRoute()
+// Utiliser le store des thèmes
 const themesStore = useThemesStore()
 
+// Récupérer l'ID de la catégorie depuis les paramètres de la route
 const categoryId = Number(route.params.categoryId)
+// Obtenir les thèmes pour la catégorie actuelle
 const themes = computed(() => themesStore.getThemesByCategoryId(categoryId))
 
-const selectedTheme = ref(null)
+// Références pour le thème sélectionné et le mode édition
+const selectedTheme = ref<Theme | null>(null)
 const editMode = ref(false)
 
 // Fonction pour éditer un thème
-const editTheme = (theme: { id: number, name: string }) => {
-  selectedTheme.value = theme
+const editTheme = (theme: Theme) => {
+  selectedTheme.value = { ...theme }  // Utiliser une copie de l'objet thème
   editMode.value = true
+}
+
+// Fonction pour annuler l'édition
+const cancelEdit = () => {
+  selectedTheme.value = null
+  editMode.value = false
+}
+
+// Fonction pour gérer la mise à jour du thème
+const handleThemeUpdated = () => {
+  fetchThemes()
+  cancelEdit()
 }
 
 // Fonction pour supprimer un thème

@@ -22,12 +22,15 @@
 import { ref, defineProps, onMounted } from 'vue'
 import { useCategoriesStore } from '@/stores/categories'
 
+// Utiliser le store des catégories
 const categoriesStore = useCategoriesStore()
 
+// Définir les props acceptées par le composant
 const props = defineProps<{
   categoryId?: number // ID de catégorie passé en prop
 }>()
 
+// Référence pour le nom de la catégorie
 const categoryName = ref('')
 
 // Si un `categoryId` est passé, on charge les données de cette catégorie
@@ -40,6 +43,7 @@ onMounted(() => {
   }
 })
 
+// Fonction pour soumettre le formulaire
 function submitForm() {
   if (categoryName.value.trim()) {
     if (props.categoryId) {
