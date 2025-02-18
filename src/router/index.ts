@@ -34,14 +34,20 @@ const router = createRouter({
       props: true,  // Permet de passer les paramètres de la route comme props
     },
     {
+
       path: '/cardCreation',
       name: 'cardCreation',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CardCreationVue.vue'),
+    },{
+      path: '/revision',
+      name: 'revision',
+      component: () => import('@/views/RevisionStart.vue'), // La même vue, mais on passe un id
+      props: true,  // Permet de passer les paramètres de la route comme props
     },
-
+    
 
   ],
 })
