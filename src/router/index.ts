@@ -31,6 +31,13 @@ const router = createRouter({
       component: () => import('@/views/CategoriesView.vue'), // La même vue, mais on passe un id
       props: true,  // Permet de passer les paramètres de la route comme props
     },
+    {
+      path: '/revision',
+      name: 'revision',
+      component: () => import('@/views/RevisionStart.vue'), // La même vue, mais on passe un id
+      props: true,  // Permet de passer les paramètres de la route comme props
+    },
+    
   ],
 })
 
