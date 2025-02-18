@@ -16,18 +16,22 @@
 import { useRevisionStore } from '@/stores/revisionStore'
 import RevisionSettings from '../components/RevisionSettings.vue'
 
+// Utilisation du store de révision
 const revisionStore = useRevisionStore()
 
+// Interface pour les thèmes
 interface Theme {
   id: number
   name: string
   // Ajoutez d'autres propriétés selon vos besoins
 }
 
+// Fonctions pour mettre à jour les thèmes, les nouvelles cartes quotidiennes et le niveau des thèmes
 const updateThemes = (themes: Theme[]) => revisionStore.selectThemes(themes)
 const updateDailyNewCards = (value: number) => revisionStore.setDailyNewCards(value)
 const updateThemeLevel = (themeId: number, level: number) => revisionStore.setThemeLevel(themeId, level)
 
+// Fonction pour démarrer la révision
 const startRevision = () => {
   revisionStore.startRevision()
 }

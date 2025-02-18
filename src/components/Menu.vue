@@ -8,7 +8,8 @@ import {RouterLink} from "vue-router";
       <nav>
         <RouterLink to="/"><img src="../assets/maison.png" width="25px" height="25px"></RouterLink>
         <RouterLink to="/cardCreation"><img src="../assets/plus.png" width="25px" height="25px"></RouterLink>
-        <RouterLink to="/categories"><img src="../assets/mallette.png" width="25px" height="25px"></RouterLink>
+        <RouterLink to="/categories"><img src="../assets/liste.png" width="25px" height="25px"></RouterLink>
+        <RouterLink to="/revision"><img src="../assets/mallette.png" width="25px" height="25px"></RouterLink>
         <RouterLink to="/about"><img src="../assets/utilisateur.png" width="25px" height="25px"></RouterLink>
 
       </nav>
