@@ -1,6 +1,4 @@
 <script setup lang="ts">
-
-import HelloWorld from "@/components/HelloWorld.vue";
 import {RouterLink} from "vue-router";
 </script>
 
@@ -8,26 +6,17 @@ import {RouterLink} from "vue-router";
   <header>
 
       <nav>
-        <RouterLink to="/">🏚️</RouterLink>
-        <RouterLink to="/about">🙍‍♂️</RouterLink>
+        <RouterLink to="/"><img src="../assets/maison.png" width="25px" height="25px"></RouterLink>
+        <RouterLink to="/cardCreation"><img src="../assets/plus.png" width="25px" height="25px"></RouterLink>
+        <RouterLink to="/categories"><img src="../assets/mallette.png" width="25px" height="25px"></RouterLink>
+        <RouterLink to="/about"><img src="../assets/utilisateur.png" width="25px" height="25px"></RouterLink>
+
       </nav>
   </header>
 </template>
 
 <style scoped>
-@media (min-width: 1024px) {
-
-nav {
-  width: 100%;
-  height: 100vh;
-  font-size: 12px;
-  text-align: center;
-  background-color: darkblue;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
+/* Règles communes */
 nav a.router-link-exact-active {
   color: var(--color-text);
 }
@@ -36,62 +25,64 @@ nav a.router-link-exact-active:hover {
   background-color: transparent;
 }
 
-nav a {
-  display: flex;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-  justify-content: space-evenly;
-}
-
 nav a:first-of-type {
   border: 0;
 }
 
+header {
+  display: flex;
+  place-items: center;
+  padding-right: calc(var(--section-gap) / 2);
+}
 
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+header .wrapper {
+  display: flex;
+  place-items: flex-start;
+  flex-wrap: wrap;
+}
 
-
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
+/* Styles pour grand écran */
+@media (min-width: 1024px) {
   nav {
-    position: relative;
-    text-align: left;
-    margin-left: 0;
-    font-size: 1rem;
-    padding: 1rem 0;
-    margin-top: 1rem;
     width: 10vh;
+    height: 100vh;
+    font-size: 1rem;
+    text-align: left;
+    background-color: darkblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 1rem 0;
+
+  }
+
+  nav a {
+    display: flex;
+    padding: 0 1rem;
+    border-left: 1px solid var(--color-border);
+    justify-content: space-evenly;
   }
 }
 
-@media (max-width: 768px) {
+/* Styles pour petit écran */
+@media (max-width: 1024px) {
   nav {
     width: 100%;
-    max-width: 768px;
-    height: 5vh;
-    font-size: 12px;
-    text-align: center;
 
+    height: 5vh;
+    font-size: 1rem;
+    text-align: center;
     background-color: darkblue;
     display: flex;
     flex-direction: row;
-  }
-
-  nav a.router-link-exact-active {
-    color: var(--color-text);
-  }
-
-  nav a.router-link-exact-active:hover {
-    background-color: transparent;
+    position: fixed;
+    margin-left: 0;
+    padding: 1rem 0;
+    bottom: 0;
+    justify-content: space-between;
   }
 
   nav a {
@@ -99,34 +90,6 @@ nav a:first-of-type {
     padding: 0 1rem;
     border-left: 1px solid var(--color-border);
   }
-
-  nav a:first-of-type {
-    border: 0;
-  }
-
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    position: fixed;
-    text-align: center;
-    margin-left: 0;
-    font-size: 1rem;
-    padding: 1rem 0;
-    bottom: 0vh;
-    justify-content: space-between;
-  }
 }
+
 </style>
