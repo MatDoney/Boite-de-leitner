@@ -9,17 +9,17 @@
     </select>
 
     <label>Thèmes à réviser :</label>
-    <div class="dropdown">
-      <button class="dropdown-button" @click="toggleDropdown">
-        Sélectionner les thèmes
-      </button>
-      <div v-if="dropdownOpen" class="dropdown-content">
-        <ul>
-          <li v-for="theme in filteredThemes" :key="theme.id">
-            <input type="checkbox" :value="theme.id" v-model="selectedThemes" class="checkbox" />
-            <span class="checkbox-label">{{ theme.name }}</span>
-          </li>
-        </ul>
+    <div class="carousel">
+      <div class="carousel-inner">
+        <div 
+          v-for="theme in filteredThemes" 
+          :key="theme.id" 
+          class="carousel-item" 
+          :class="{ 'selected': selectedThemes.includes(theme.id) }"
+          @click="toggleThemeSelection(theme.id)"
+        >
+          {{ theme.name }}
+        </div>
       </div>
     </div>
 
@@ -40,7 +40,6 @@ const themes = themesStore.themes
 const categories = categoriesStore.categories
 const selectedThemes = ref<number[]>([])
 const dailyNewCards = ref(5)
-const dropdownOpen = ref(false)
 const selectedCategory = ref<string>('')
 
 // Définition des événements émis par le composant
@@ -59,9 +58,14 @@ const selectedThemesObjects = computed(() => {
   return themes.filter(theme => selectedThemes.value.includes(theme.id))
 })
 
-// Fonction pour basculer l'affichage de la liste déroulante
-const toggleDropdown = () => {
-  dropdownOpen.value = !dropdownOpen.value
+// Fonction pour basculer la sélection d'un thème
+const toggleThemeSelection = (themeId: number) => {
+  if (selectedThemes.value.includes(themeId)) {
+    selectedThemes.value = selectedThemes.value.filter(id => id !== themeId)
+  } else {
+    selectedThemes.value.push(themeId)
+  }
+  updateThemes()
 }
 
 // Fonction pour mettre à jour les thèmes sélectionnés
@@ -98,24 +102,31 @@ label {
   color: #555;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.carousel {
+  overflow: hidden;
+  width: 100%;
 }
 
-li {
-  margin-bottom: 10px;
+.carousel-inner {
   display: flex;
-  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
 }
 
-.checkbox {
-  margin-right: 10px;
-  accent-color: #007bff; /* Couleur moderne pour les cases à cocher */
+.carousel-item {
+  flex: 0 0 auto;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: background-color 0.3s ease;
 }
 
-.checkbox-label {
-  color: #333; /* Texte plus visible */
+.carousel-item.selected {
+  background-color: #007bff;
+  color: white;
 }
 
 .input-number {
@@ -123,33 +134,6 @@ li {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-.dropdown {
-  position: relative;
-}
-
-.dropdown-button {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.dropdown-content {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;
 }
 
 .select-category {

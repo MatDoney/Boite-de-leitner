@@ -6,7 +6,12 @@
     </div>
     <ul class="theme-list">
       <li v-for="theme in themes" :key="theme.id" class="theme-item">
-        <span class="theme-name">{{ theme.name }}</span>
+        <router-link
+          :to="{ name: 'cardList', params: { theme: theme.id } }"
+          class="view-themes-link"
+        >
+          <span class="theme-name">{{ theme.name }}</span>
+        </router-link>
         <div class="button-container">
           <button @click="$emit('edit', theme)" class="btn-edit">Modifier</button>
           <button @click="$emit('delete', theme.id)" class="btn-delete">Supprimer</button>
@@ -128,5 +133,12 @@ h3 {
 
 .btn-add-theme:hover {
   background-color: #0056b3;
+}
+
+.view-themes-link {
+  font-size: 0.9rem;
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
 }
 </style>
