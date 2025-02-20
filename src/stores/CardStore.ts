@@ -3,14 +3,14 @@ import { defineStore } from 'pinia'
 export const useCardStore = defineStore('cartes', {
     state: () => ({
         cartes: [
-            { id: 1, themeId: 1, question: 'Quelle est la capitale de la France ?', reponse: 'Paris' },
-            { id: 2, themeId: 1, question: 'Quelle est la formule de l’eau ?', reponse: 'H2O' },
+            { id: 1, themeId: 1,niveau :1, question: 'Quelle est la capitale de la France ?', reponse: 'Paris' },
+            { id: 2, themeId: 1,niveau :1, question: 'Quelle est la formule de l’eau ?', reponse: 'H2O' },
         ]
     }),
     actions: {
         // Ajout d'une carte
-        addCard(question: string, reponse: string, themeId: number) {
-            const newCard = { id: Date.now(), question, reponse, themeId }
+        addCard(question: string, reponse: string, themeId: number,niveau: number) {
+            const newCard = { id: Date.now(), question, reponse, themeId,niveau }
             this.cartes.push(newCard)
             this.saveCards() // Sauvegarde après ajout
         },
@@ -21,6 +21,7 @@ export const useCardStore = defineStore('cartes', {
             if (card) {
                 card.question = question
                 card.reponse = reponse
+                card.niveau = 1
                 this.saveCards()
             }
         },

@@ -33,6 +33,9 @@ function handleSubmit(e: Event) {
       alert("Veuillez choisir un thème");
       return;
     }
+
+
+
     cardStore.addCard(questionField.value, reponseField.value, selectedTheme.value);
     //window.location.replace("/theme/"+ selectedTheme.value);
     window.location.replace("/categories");
@@ -46,7 +49,7 @@ function handleSubmit(e: Event) {
       <h2>{{ editCard ? 'Modification ' : 'Création' }} de carte</h2>
       <div class="form-group">
         <label for="theme">Thème :</label>
-        <select name="theme" id="theme" v-model="selectedTheme">
+        <select name="theme" id="theme" v-model="selectedTheme" required>
           <option value="" disabled>Choisissez un thème</option>
           <option
               v-for="(theme, index) in themesStore.themes"
@@ -62,19 +65,19 @@ function handleSubmit(e: Event) {
             id="question"
             type="text"
             placeholder="Entrez la question"
-            v-model="questionField" />
+            v-model="questionField" required/>
       </div>
       <div class="form-group">
         <label for="reponse">Réponse :</label>
         <textarea
             id="reponse"
             placeholder="Entrez la réponse"
-            v-model="reponseField">
+            v-model="reponseField" required>
         </textarea>
       </div>
       <div class="form-group">
         <label for="media">Image ou Audio :</label>
-        <input id="media" type="file" accept="image/*, audio/*" />
+        <input id="media" type="file" accept="image/*, audio/*, video/*" />
       </div>
       <div class="form-group">
         <input type="submit" value="Valider" />
@@ -162,5 +165,11 @@ function handleSubmit(e: Event) {
 /* Hover sur le bouton */
 .card-form input[type="submit"]:hover {
   background-color: #0056b3;
+}
+
+@media (max-width: 1024px) {
+  .card-form {
+    width: 100%;
+  }
 }
 </style>

@@ -41,6 +41,14 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CardCreationVue.vue'),
     },
+    {
+      path: '/cardList/:themeId',
+      name: 'cardList',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/CardsList.vue'),
+    },
 
 
   ],
