@@ -1,6 +1,9 @@
 <template>
   <div class="theme-list-container">
-    <h3>Liste des thèmes</h3>
+    <div class="header">
+      <h3>Liste des thèmes</h3>
+      <button @click="$emit('toggleThemeForm')" class="btn-add-theme">Ajouter un thème</button>
+    </div>
     <ul class="theme-list">
       <li v-for="theme in themes" :key="theme.id" class="theme-item">
         <span class="theme-name">{{ theme.name }}</span>
@@ -38,11 +41,16 @@ const props = defineProps<{
   margin: 0 auto;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 h3 {
-  text-align: center;
-  color: #333;
   font-size: 1.5rem;
-  margin-bottom: 15px;
+  color: #333;
 }
 
 .theme-list {
@@ -106,5 +114,19 @@ h3 {
 
 .btn-delete:hover {
   background-color: #c0392b;
+}
+
+.btn-add-theme {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-theme:hover {
+  background-color: #0056b3;
 }
 </style>
