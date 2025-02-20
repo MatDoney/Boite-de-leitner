@@ -33,7 +33,9 @@ const router = createRouter({
       component: () => import('@/views/CategoriesView.vue'), // La même vue, mais on passe un id
       props: true,  // Permet de passer les paramètres de la route comme props
     },
+    //ajout de la route edition d'une carte 
     {
+
       path: '/cardCreation',
       name: 'cardCreation',
       // route level code-splitting
@@ -41,6 +43,16 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CardCreationVue.vue'),
     },
+
+    //ajout de la route pour la révision
+    {
+      path: '/revision',
+      name: 'revision',
+      component: () => import('@/views/RevisionStart.vue'), // La même vue, mais on passe un id
+      props: true,  // Permet de passer les paramètres de la route comme props
+    },
+    
+
     {
       path: '/cardList/:themeId',
       name: 'cardList',
@@ -49,7 +61,6 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CardsList.vue'),
     },
-
 
   ],
 })

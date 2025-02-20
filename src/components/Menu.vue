@@ -6,10 +6,11 @@ import {RouterLink} from "vue-router";
   <header>
 
       <nav>
-        <RouterLink to="/"><img src="../assets/maison.png" width="25px" height="25px"></RouterLink>
-        <RouterLink to="/cardCreation"><img src="../assets/plus.png" width="25px" height="25px"></RouterLink>
-        <RouterLink to="/categories"><img src="../assets/mallette.png" width="25px" height="25px"></RouterLink>
-        <RouterLink to="/about"><img src="../assets/utilisateur.png" width="25px" height="25px"></RouterLink>
+        <RouterLink title="Accueil" to="/"><img src="../assets/maison.png" width="25px" height="25px"></RouterLink>
+        <RouterLink title="Creation carte" to="/cardCreation"><img src="../assets/plus.png" width="25px" height="25px"></RouterLink>
+        <RouterLink title="Catégorie des thèmes" to="/categories"><img src="../assets/liste.png" width="25px" height="25px"></RouterLink>
+        <RouterLink title="Personnalisation Revision" to="/revision"><img src="../assets/mallette.png" width="25px" height="25px"></RouterLink>
+        <RouterLink title="Profil" to="/about"><img src="../assets/utilisateur.png" width="25px" height="25px"></RouterLink>
 
       </nav>
   </header>

@@ -1,14 +1,16 @@
 <template>
   <div class="categories-container">
-    <h2 class="title">Liste des catégories</h2>
+    <div class="header">
+      <h2 class="title">Liste des catégories</h2>
+      <button @click="$emit('toggleCategoryForm')" class="btn-add-category">Ajouter une catégorie</button>
+    </div>
     <ul class="categories-list">
       <li v-for="category in categories" :key="category.id" class="category-item">
-        <span class="category-name">{{ category.name }}</span>
         <router-link
           :to="{ name: 'themes', params: { categoryId: category.id } }"
           class="view-themes-link"
         >
-          Voir les thèmes
+        <span class="category-name">{{ category.name }}</span>
         </router-link>
       </li>
     </ul>
@@ -33,11 +35,16 @@ const categories = categoriesStore.categories
   margin: 20px auto;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .title {
-  text-align: center;
   font-size: 2rem;
   color: #333;
-  margin-bottom: 20px;
 }
 
 .categories-list {
@@ -76,5 +83,19 @@ const categories = categoriesStore.categories
 
 .view-themes-link:hover {
   text-decoration: underline;
+}
+
+.btn-add-category {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-category:hover {
+  background-color: #0056b3;
 }
 </style>
