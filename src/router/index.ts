@@ -43,6 +43,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CardCreationVue.vue'),
     },
+
     //ajout de la route pour la révision
     {
       path: '/revision',
@@ -51,6 +52,15 @@ const router = createRouter({
       props: true,  // Permet de passer les paramètres de la route comme props
     },
     
+
+    {
+      path: '/cardList/:themeId',
+      name: 'cardList',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/CardsList.vue'),
+    },
 
   ],
 })
