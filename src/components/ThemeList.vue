@@ -7,7 +7,7 @@
     <ul class="theme-list">
       <li v-for="theme in themes" :key="theme.id" class="theme-item">
         <router-link
-          :to="{ name: 'cardList', params: { theme: theme.id } }"
+           :to="{ name: 'cardList', params: { themeId: theme.id } }"
           class="view-themes-link"
         >
           <span class="theme-name">{{ theme.name }}</span>
