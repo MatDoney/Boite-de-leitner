@@ -5,6 +5,7 @@
     <RevisionSettings 
       @updateThemes="updateThemes"
       @updateDailyNewCards="updateDailyNewCards"
+      @updateProgramName="updateProgramName"
       @updateThemeLevel="updateThemeLevel"
     />
 
@@ -13,11 +14,13 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { useRevisionStore } from '@/stores/revisionStore'
 import RevisionSettings from '../components/RevisionSettings.vue'
 
 // Utilisation du store de révision
 const revisionStore = useRevisionStore()
+const router = useRouter();
 
 // Interface pour les thèmes
 interface Theme {
@@ -29,11 +32,13 @@ interface Theme {
 // Fonctions pour mettre à jour les thèmes, les nouvelles cartes quotidiennes et le niveau des thèmes
 const updateThemes = (themes: Theme[]) => revisionStore.selectThemes(themes)
 const updateDailyNewCards = (value: number) => revisionStore.setDailyNewCards(value)
+const updateProgramName = (name: string) => revisionStore.setProgramName(name)
 const updateThemeLevel = (themeId: number, level: number) => revisionStore.setThemeLevel(themeId, level)
 
 // Fonction pour démarrer la révision
 const startRevision = () => {
   revisionStore.startRevision()
+  router.push({ name: 'home' }); // Redirection vers la page d'accueil
 }
 </script>
 

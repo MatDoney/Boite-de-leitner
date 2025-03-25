@@ -2,6 +2,9 @@
   <div class="settings-container">
     <h3>Configuration de la révision</h3>
 
+    <label>Nom du programme :</label>
+    <input type="text" v-model="programName" class="input-text" @input="updateProgramName" />
+
     <label>Catégories :</label>
     <select v-model="selectedCategory" class="select-category">
       <option value="">Toutes les catégories</option>
@@ -24,7 +27,7 @@
     </div>
 
     <label>Nombre de nouvelles cartes par jour :</label>
-    <input type="number" v-model="dailyNewCards" min="1" max="20" class="input-number" />
+    <input type="number" v-model="dailyNewCards" min="1" max="20" class="input-number" @input="updateDailyNewCards" />
   </div>
 </template>
 
@@ -41,9 +44,10 @@ const categories = categoriesStore.categories
 const selectedThemes = ref<number[]>([])
 const dailyNewCards = ref(5)
 const selectedCategory = ref<string>('')
+const programName = ref<string>('')
 
 // Définition des événements émis par le composant
-const emit = defineEmits(['updateThemes', 'updateDailyNewCards'])
+const emit = defineEmits(['updateThemes', 'updateDailyNewCards', 'updateProgramName'])
 
 // Filtrage des thèmes en fonction de la catégorie sélectionnée
 const filteredThemes = computed(() => {
@@ -76,6 +80,11 @@ const updateThemes = () => {
 // Fonction pour mettre à jour le nombre de nouvelles cartes quotidiennes
 const updateDailyNewCards = () => {
   emit('updateDailyNewCards', dailyNewCards.value)
+}
+
+// Fonction pour mettre à jour le nom du programme
+const updateProgramName = () => {
+  emit('updateProgramName', programName.value)
 }
 </script>
 
@@ -137,6 +146,14 @@ label {
 }
 
 .select-category {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.input-text {
+  width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
