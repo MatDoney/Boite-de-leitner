@@ -44,18 +44,21 @@ const getNextCard = () => {
 <style scoped>
 .carousel-container {
   width: 100%;
+  height: 100vh;
+  align-items: center;
   overflow: hidden;
   display: flex;
   justify-content: center;
 }
 
 .carousel {
+
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding: 10px;
-  width: 85vh;
+  width: 100vh;
 }
 
 .carousel-item {

@@ -26,7 +26,7 @@ function handleSubmit(e: Event) {
 
   // Si on a un id, on met à jour la carte
   if (props.id !== undefined) {
-    cardStore.updateCard(props.id, questionField.value, reponseField.value);
+    cardStore.updateCard(props.id, questionField.value, reponseField.value,1);
   } else {
     // Pour l'ajout, on vérifie qu'un thème est sélectionné
     if (selectedTheme.value === null) {
@@ -36,7 +36,7 @@ function handleSubmit(e: Event) {
 
 
 
-    cardStore.addCard(questionField.value, reponseField.value, selectedTheme.value);
+    cardStore.addCard(questionField.value, reponseField.value, selectedTheme.value,1);
     //window.location.replace("/theme/"+ selectedTheme.value);
     window.location.replace("/categories");
   }
