@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CardForm from "@/components/CardForm.vue";
+import CardForm from '@/components/CardForm.vue';
 
 
 </script>

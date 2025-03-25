@@ -9,7 +9,7 @@ const props = defineProps<{ id: number }>();
 const cartesStore = useCardStore();
 
 // Récupération de la carte en fonction de l'ID
-const carte = computed(() => cartesStore.cartes.find(c => c.id === props.id));
+const carte = computed(() => cartesStore.cartes.find(c => c.id === props.id)).value;
 
 // État de la rotation de la carte
 const isFlipped = ref(false);
@@ -18,6 +18,15 @@ const isFlipped = ref(false);
 const flipCard = () => {
   isFlipped.value = !isFlipped.value;
 };
+
+//Fonction pour ajouter un niveau à la carte
+if(carte != undefined) {
+const NextLevel = () => {
+  cartesStore.updateCard(carte.id, carte.question, carte.reponse,carte.niveau);
+}
+}else {
+  throw new Error("Aucune carte correspondante");
+}
 </script>
 
 <template>
@@ -118,5 +127,11 @@ const flipCard = () => {
 
 .btn-fail:hover {
   background-color: #c0392b;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    width: 50vh;
+  }
 }
 </style>
