@@ -9,7 +9,7 @@ const props = defineProps<{ id: number }>();
 const cartesStore = useCardStore();
 
 // Récupération de la carte en fonction de l'ID
-const carte = computed(() => cartesStore.cartes.find(c => c.id === props.id)).value;
+const carte = computed(() => cartesStore.cartes.find(c => c.id === props.id));
 
 // État de la rotation de la carte
 const isFlipped = ref(false);
@@ -19,14 +19,23 @@ const flipCard = () => {
   isFlipped.value = !isFlipped.value;
 };
 
-//Fonction pour ajouter un niveau à la carte
-if(carte != undefined) {
-const NextLevel = () => {
-  cartesStore.updateCard(carte.id, carte.question, carte.reponse,carte.niveau);
-}
-}else {
-  throw new Error("Aucune carte correspondante");
-}
+// Fonction pour augmenter le niveau de la carte
+const increaseLevel = () => {
+  if (carte.value) {
+    cartesStore.updateCard(carte.value.id, carte.value.question, carte.value.reponse, carte.value.niveau + 1);
+  } else {
+    throw new Error("Aucune carte correspondante");
+  }
+};
+
+// Fonction pour réinitialiser le niveau de la carte
+const resetLevel = () => {
+  if (carte.value) {
+    cartesStore.updateCard(carte.value.id, carte.value.question, carte.value.reponse, 1);
+  } else {
+    throw new Error("Aucune carte correspondante");
+  }
+};
 </script>
 
 <template>
@@ -44,7 +53,10 @@ const NextLevel = () => {
       </div>
       <div class="card-back">
         <div><p>{{ carte?.reponse || 'Réponse non trouvée' }}</p></div>
-        <div class="card-buttons"><button class="btn-validate">Je le savais !</button><button class="btn-fail">J'avais oublié :( </button></div>
+        <div class="card-buttons">
+          <button class="btn-validate" @click.stop="increaseLevel">Je le savais !</button>
+          <button class="btn-fail" @click.stop="resetLevel">J'avais oublié :(</button>
+        </div>
       </div>
     </div>
   </div>
