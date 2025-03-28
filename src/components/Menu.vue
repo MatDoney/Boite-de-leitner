@@ -10,7 +10,7 @@ import {RouterLink} from "vue-router";
         <RouterLink title="Creation carte" to="/cardCreation"><img src="../assets/plus.png" width="25px" height="25px"></RouterLink>
         <RouterLink title="Catégorie des thèmes" to="/categories"><img src="../assets/liste.png" width="25px" height="25px"></RouterLink>
         <RouterLink title="Personnalisation Revision" to="/revision"><img src="../assets/mallette.png" width="25px" height="25px"></RouterLink>
-        <RouterLink title="Profil" to="/about"><img src="../assets/utilisateur.png" width="25px" height="25px"></RouterLink>
+        <!-- <RouterLink title="Profil" to="/about"><img src="../assets/utilisateur.png" width="25px" height="25px"></RouterLink>-->
 
       </nav>
   </header>

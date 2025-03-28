@@ -13,6 +13,10 @@ export const useThemesStore = defineStore('themes', {
     // Getter pour obtenir les thèmes par ID de catégorie
     getThemesByCategoryId: (state) => {
       return (categoryId: number) => state.themes.filter(theme => theme.categoryId === categoryId)
+    },
+    // Getter pour obtenir un thème par ID
+    getThemeById: (state) => {
+      return (themeId: number) => state.themes.find(theme => theme.id === themeId)
     }
   },
   actions: {

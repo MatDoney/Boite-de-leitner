@@ -18,6 +18,24 @@ const isFlipped = ref(false);
 const flipCard = () => {
   isFlipped.value = !isFlipped.value;
 };
+
+// Fonction pour augmenter le niveau de la carte
+const increaseLevel = () => {
+  if (carte.value) {
+    cartesStore.updateCard(carte.value.id, carte.value.question, carte.value.reponse, carte.value.niveau + 1);
+  } else {
+    throw new Error("Aucune carte correspondante");
+  }
+};
+
+// Fonction pour réinitialiser le niveau de la carte
+const resetLevel = () => {
+  if (carte.value) {
+    cartesStore.updateCard(carte.value.id, carte.value.question, carte.value.reponse, 1);
+  } else {
+    throw new Error("Aucune carte correspondante");
+  }
+};
 </script>
 
 <template>
@@ -35,7 +53,10 @@ const flipCard = () => {
       </div>
       <div class="card-back">
         <div><p>{{ carte?.reponse || 'Réponse non trouvée' }}</p></div>
-        <div class="card-buttons"><button class="btn-validate">Je le savais !</button><button class="btn-fail">J'avais oublié :( </button></div>
+        <div class="card-buttons">
+          <button class="btn-validate" @click.stop="increaseLevel">Je le savais !</button>
+          <button class="btn-fail" @click.stop="resetLevel">J'avais oublié :(</button>
+        </div>
       </div>
     </div>
   </div>
@@ -118,5 +139,11 @@ const flipCard = () => {
 
 .btn-fail:hover {
   background-color: #c0392b;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    width: 50vh;
+  }
 }
 </style>
