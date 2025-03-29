@@ -75,10 +75,7 @@ function handleSubmit(e: Event) {
             v-model="reponseField" required>
         </textarea>
       </div>
-      <div class="form-group">
-        <label for="media">Image ou Audio :</label>
-        <input id="media" type="file" accept="image/*, audio/*, video/*" />
-      </div>
+      
       <div class="form-group">
         <input type="submit" value="Valider" />
       </div>

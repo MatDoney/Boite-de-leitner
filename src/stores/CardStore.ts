@@ -17,6 +17,7 @@ interface Card {
 }
 
 export const useCardStore = defineStore('cartes', {
+
   state: () => ({
     cartes: [
       { id: 1, themeId: 4, niveau: 1, question: 'Quelle est la capitale de la France ?', reponse: 'Paris' },
@@ -75,3 +76,4 @@ export const useCardStore = defineStore('cartes', {
 // Supprimez cet appel direct en dehors d'un composant ou d'une fonction Vue
 // const cardStore = useCardStore();
 // cardStore.loadCards();
+

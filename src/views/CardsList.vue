@@ -21,7 +21,7 @@ const themesStore = useThemesStore();
 // Récupérer le nom du thème actuel à l'aide de getThemeById
 const currentThemeName = computed(() => {
     const theme = theme_id !== null ? themesStore.getThemeById(theme_id) : null;
-    return theme ? theme.name : "Thème inconnu";
+    return theme ? theme.name : "";
 });
 
 // État pour le niveau actuel
@@ -88,9 +88,9 @@ const goBackToThemes = () => {
       </template>
     </div>
     <div class="level-navigation">
-      <button @click="changeLevel('prev')" :disabled="currentLevel === 1" class="nav-button">← {{ currentLevel - 1 }}</button>
+      <button @click="changeLevel('prev')" :disabled="currentLevel === 1" class="nav-button">←</button>
       <span class="current-level">Niveau {{ currentLevel }}</span>
-      <button @click="changeLevel('next')" :disabled="currentLevel === 7" class="nav-button">{{ currentLevel + 1 }} →</button>
+      <button @click="changeLevel('next')" :disabled="currentLevel === 7" class="nav-button">→</button>
     </div>
   </div>
 </template>
@@ -145,7 +145,7 @@ const goBackToThemes = () => {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding: 10px;
-  width: 100%; /* Ajustement pour s'adapter à la largeur de l'écran */
+  width: 80%; /* Ajustement pour s'adapter à la largeur de l'écran */
   
   align-items: center;
   box-sizing: border-box;
@@ -231,6 +231,7 @@ const goBackToThemes = () => {
     overflow-y: auto; /* Active le défilement vertical */
     overflow-x: hidden; /* Désactive le défilement horizontal */
     gap: 10px;
+    width: 100%;
     padding: 5px;
     height: 65vh; /* Ajuste la hauteur pour éviter le chevauchement avec le header */
   }

@@ -14,6 +14,7 @@
     <label>Thèmes à réviser :</label>
     <div class="carousel">
       <div class="carousel-inner">
+
         <div 
           v-for="theme in limitedThemes" 
           :key="theme.id" 
@@ -22,12 +23,21 @@
           @click="toggleThemeSelection(theme.id)"
         >
           {{ theme.name }} ({{ theme.cards.length }} cartes)
+
         </div>
       </div>
     </div>
 
     <label>Nombre de nouvelles cartes par jour :</label>
     <input type="number" v-model="dailyNewCards" min="1" max="20" class="input-number" @input="updateDailyNewCards" />
+
+    <label>
+      <input type="checkbox" v-model="enableNotifications" @change="handleNotificationChange" />
+      Activer les notifications
+    </label>
+
+    <label>Heure de la notification :</label>
+    <input type="time" v-model="notificationTime" class="input-time"  />
   </div>
 </template>
 
@@ -35,19 +45,30 @@
 import { computed, ref, defineEmits } from 'vue'
 import { useThemesStore } from '@/stores/themesStore'
 import { useCategoriesStore } from '@/stores/categories'
+import { useRevisionStore } from '@/stores/revisionStore'
 
-// Utilisation des stores de thèmes et de catégories
+// Utilisation des stores
 const themesStore = useThemesStore()
 const categoriesStore = useCategoriesStore()
+const revisionStore = useRevisionStore()
+
+// Variables et références
 const themes = themesStore.themes
 const categories = categoriesStore.categories
 const selectedThemes = ref<number[]>([])
 const dailyNewCards = ref(5)
 const selectedCategory = ref<string>('')
 const programName = ref<string>('')
+const enableNotifications = ref<boolean>(false) // État de la checkbox
+const notificationTime = ref<string>(revisionStore.notificationTime) // Heure de la notification
 
 // Définition des événements émis par le composant
-const emit = defineEmits(['updateThemes', 'updateDailyNewCards', 'updateProgramName'])
+const emit = defineEmits(['updateThemes', 'updateDailyNewCards', 'updateProgramName', 'updateNotificationTime'])
+
+// Propriété calculée pour obtenir les objets des thèmes sélectionnés
+const selectedThemesObjects = computed(() => {
+  return themes.filter(theme => selectedThemes.value.includes(theme.id))
+})
 
 // Filtrage des thèmes en fonction de la catégorie sélectionnée
 const filteredThemes = computed(() => {
@@ -60,10 +81,30 @@ const filteredThemes = computed(() => {
   return filtered;
 })
 
-// Calcul des thèmes sélectionnés
-const selectedThemesObjects = computed(() => {
-  return themes.filter(theme => selectedThemes.value.includes(theme.id))
-})
+// Gestion des notifications
+const handleNotificationChange = async () => {
+  if (enableNotifications.value) {
+    if (Notification.permission === 'granted') {
+      console.log('Notifications déjà autorisées');
+      revisionStore.setNotification(true)
+      revisionStore.scheduleDailyNotification(notificationTime.value) // Planifier la notification
+    } else if (Notification.permission !== 'denied') {
+      const permission = await Notification.requestPermission()
+      if (permission === 'granted') {
+        revisionStore.setNotification(true)
+        revisionStore.scheduleDailyNotification(notificationTime.value) // Planifier la notification
+      } else {
+        enableNotifications.value = false
+        alert('Vous devez autoriser les notifications pour activer cette option.')
+      }
+    } else {
+      enableNotifications.value = false
+      alert('Les notifications sont bloquées dans votre navigateur.')
+    }
+  } else {
+    revisionStore.setNotification(false)
+  }
+}
 
 // Fonction pour basculer la sélection d'un thème
 const toggleThemeSelection = (themeId: number) => {
@@ -97,6 +138,8 @@ const updateDailyNewCards = () => {
 const updateProgramName = () => {
   emit('updateProgramName', programName.value)
 }
+
+
 </script>
 
 <style scoped>
@@ -169,5 +212,12 @@ label {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+}
+
+.input-time {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 </style>
