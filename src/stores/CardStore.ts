@@ -1,5 +1,21 @@
 import { defineStore } from 'pinia';
 
+interface StoredCard {
+  id: string;
+  themeId: number;
+  niveau: number;
+  question: string;
+  reponse: string;
+}
+
+interface Card {
+  id: number;
+  themeId: number;
+  niveau: number;
+  question: string;
+  reponse: string;
+}
+
 export const useCardStore = defineStore('cartes', {
   state: () => ({
     cartes: [
@@ -36,14 +52,21 @@ export const useCardStore = defineStore('cartes', {
 
     // Sauvegarde des cartes dans le localStorage
     saveCards() {
-      localStorage.setItem('cartes', JSON.stringify(this.cartes));
+      const cardsToSave = this.cartes.map(card => ({
+        ...card,
+        id: String(card.id), // Assurez-vous que l'ID est une chaîne
+      }));
+      localStorage.setItem('cartes', JSON.stringify(cardsToSave));
     },
 
     // Chargement des cartes depuis le localStorage
     loadCards() {
       const storedCards = localStorage.getItem('cartes');
       if (storedCards) {
-        this.cartes = JSON.parse(storedCards);
+        this.cartes = JSON.parse(storedCards).map((card: StoredCard): Card => ({
+          ...card,
+          id: Number(card.id), // Convertir l'ID en nombre
+        }));
       }
     },
   },

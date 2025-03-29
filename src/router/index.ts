@@ -46,7 +46,7 @@ const router = createRouter({
       path: '/cardList/:themeId',
       name: 'cardList',
       component: () => import('../views/CardsList.vue'),
-      props: true,
+      props: true, // Permet de passer les paramètres de route comme props
     },
     {
       path: '/programme/:programId',

@@ -15,13 +15,13 @@
     <div class="carousel">
       <div class="carousel-inner">
         <div 
-          v-for="theme in filteredThemes" 
+          v-for="theme in limitedThemes" 
           :key="theme.id" 
           class="carousel-item" 
           :class="{ 'selected': selectedThemes.includes(theme.id) }"
           @click="toggleThemeSelection(theme.id)"
         >
-          {{ theme.name }}
+          {{ theme.name }} ({{ theme.cards.length }} cartes)
         </div>
       </div>
     </div>
@@ -52,9 +52,12 @@ const emit = defineEmits(['updateThemes', 'updateDailyNewCards', 'updateProgramN
 // Filtrage des thèmes en fonction de la catégorie sélectionnée
 const filteredThemes = computed(() => {
   if (!selectedCategory.value) {
-    return themes
+    console.log("Thèmes filtrés (toutes catégories) :", themes);
+    return themes;
   }
-  return themes.filter(theme => theme.categoryId === Number(selectedCategory.value))
+  const filtered = themes.filter(theme => theme.categoryId === Number(selectedCategory.value));
+  console.log("Thèmes filtrés (catégorie sélectionnée) :", filtered);
+  return filtered;
 })
 
 // Calcul des thèmes sélectionnés
@@ -76,6 +79,14 @@ const toggleThemeSelection = (themeId: number) => {
 const updateThemes = () => {
   emit('updateThemes', selectedThemesObjects.value)
 }
+
+// Fonction pour limiter les cartes affichées par jour
+const limitedThemes = computed(() => {
+  return filteredThemes.value.map(theme => {
+    const cards = themesStore.getCardsByThemeId(theme.id); // Assurez-vous que cette méthode existe dans le store
+    return { ...theme, cards: cards.slice(0, dailyNewCards.value) }; // Limiter les cartes
+  });
+})
 
 // Fonction pour mettre à jour le nombre de nouvelles cartes quotidiennes
 const updateDailyNewCards = () => {
