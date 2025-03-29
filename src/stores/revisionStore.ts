@@ -16,7 +16,9 @@ export const useRevisionStore = defineStore('revision', {
     themeLevels: {} as Record<number, number>, // Stocke le niveau choisi pour chaque thème
     programName: '', // Nom du programme de révision
     programId: null as string | null, // ID du programme de révision
+    notification: false as Boolean, // Notification de révision
     programs: [] as { id: string; name: string; themes: { id: number; name: string }[]; dailyNewCards: number; themeLevels: Record<number, number> }[], // Liste des programmes de révision
+    notificationTime: '09:00', // Heure par défaut pour la notification
   }),
 
   getters: {
@@ -40,6 +42,14 @@ export const useRevisionStore = defineStore('revision', {
       this.programName = name
     },
 
+    setNotification(value: Boolean) {
+      this.notification = value
+    },
+
+    setNotificationTime(time: string) {
+      this.notificationTime = time;
+    },
+
     startRevision() {
       // Générer un ID unique pour le programme
       const programId = generateUniqueId();
@@ -53,6 +63,7 @@ export const useRevisionStore = defineStore('revision', {
         themes: JSON.parse(JSON.stringify(this.selectedThemes)), // Cloner les thèmes sélectionnés
         dailyNewCards: this.dailyNewCards,
         themeLevels: { ...this.themeLevels }, // Cloner les niveaux des thèmes
+        notification: this.notification,
       };
 
       // Récupérer la liste existante des programmes
@@ -72,6 +83,32 @@ export const useRevisionStore = defineStore('revision', {
       this.dailyNewCards = 5;
       this.themeLevels = {};
       this.programName = '';
+    },
+
+    scheduleDailyNotification( notificationTime :string) {
+      if (!this.notification || !this.programName) return;
+
+      const notificationTitle = `C'est l'heure de réviser ${this.programName}`;
+      const notificationOptions = {
+        body: 'Cliquez ici pour commencer votre session de révision.',
+        
+      };
+
+      // Planifier une notification quotidienne
+      const now = new Date();
+      const [hours, minutes] = notificationTime.split(':').map(Number);
+      const nextNotificationTime = new Date();
+      nextNotificationTime.setHours(hours, minutes, 0, 0); // Utiliser l'heure définie par l'utilisateur
+      if (now > nextNotificationTime) {
+        nextNotificationTime.setDate(nextNotificationTime.getDate() + 1); // Si l'heure est passée, planifier pour le lendemain
+      }
+
+      const delay = nextNotificationTime.getTime() - now.getTime();
+      console.log('Notification planifiée dans', delay, 'millisecondes');
+      setTimeout(() => {
+        new Notification(notificationTitle, notificationOptions);
+        this.scheduleDailyNotification(notificationTime); // Replanifier pour le jour suivant
+      }, delay);
     },
   },
 })

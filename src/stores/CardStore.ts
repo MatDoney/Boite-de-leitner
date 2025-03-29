@@ -18,12 +18,12 @@ export const useCardStore = defineStore('cartes', {
         // Mise à jour d'une carte (modification de la question et de la réponse)
         updateCard(id: number, question: string, reponse: string,niveau: number) {
             const card = this.cartes.find(c => c.id === id)
-            if (card && niveau <=5) {
+            if (card && niveau <=7) {
                 card.question = question
                 card.reponse = reponse
                 card.niveau = niveau
                 this.saveCards()
-            }else if (card && niveau >5) {
+            }else if (card && niveau > 7) {
                 this.removeCard(card.id)
             }
         },
@@ -49,6 +49,4 @@ export const useCardStore = defineStore('cartes', {
     }
 })
 
-// Charge les cartes depuis le stockage local lors de l'initialisation du store
-const cardStore = useCardStore()
-cardStore.loadCards()
+

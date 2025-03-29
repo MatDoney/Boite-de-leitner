@@ -21,7 +21,7 @@ const themesStore = useThemesStore();
 // Récupérer le nom du thème actuel à l'aide de getThemeById
 const currentThemeName = computed(() => {
     const theme = theme_id !== null ? themesStore.getThemeById(theme_id) : null;
-    return theme ? theme.name : "Thème inconnu";
+    return theme ? theme.name : "";
 });
 
 // État pour le niveau actuel
@@ -90,7 +90,7 @@ const goBackToThemes = () => {
     <div class="level-navigation">
       <button @click="changeLevel('prev')" :disabled="currentLevel === 1" class="nav-button">←</button>
       <span class="current-level">Niveau {{ currentLevel }}</span>
-      <button @click="changeLevel('next')" :disabled="currentLevel === 5" class="nav-button">→</button>
+      <button @click="changeLevel('next')" :disabled="currentLevel === 7" class="nav-button">→</button>
     </div>
   </div>
 </template>
