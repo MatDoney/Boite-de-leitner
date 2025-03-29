@@ -16,7 +16,6 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-
       path: '/categories',
       name: 'categories',
       component: () => import('@/views/CategoriesView.vue'),
@@ -26,31 +25,35 @@ const router = createRouter({
       name: 'themes',
       component: () => import('@/views/ThemesView.vue'),
     },
-    // Ajout de la route pour l'édition d'une catégorie
     {
       path: '/categories/edit/:id',
       name: 'editCategory',
-      component: () => import('@/views/CategoriesView.vue'), // La même vue, mais on passe un id
-      props: true,  // Permet de passer les paramètres de la route comme props
+      component: () => import('@/views/CategoriesView.vue'),
+      props: true,
     },
     {
       path: '/cardCreation',
       name: 'cardCreation',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/CardCreationVue.vue'),
+    },
+    {
+      path: '/revision',
+      name: 'revision',
+      component: () => import('@/views/RevisionStart.vue'),
+      props: true,
     },
     {
       path: '/cardList/:themeId',
       name: 'cardList',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/CardsList.vue'),
+      props: true,
     },
-
-
+    {
+      path: '/programme/:programId',
+      name: 'CardsList',
+      component: () => import('../views/CardsList.vue'),
+      props: true
+    },
   ],
 })
 

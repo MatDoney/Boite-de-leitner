@@ -1,19 +1,14 @@
 <template>
   <div>
-    <!-- Liste des thèmes -->
-    <ThemeList
-      :themes="themes"
-      @edit="editTheme"
-      @delete="removeTheme"
-    />
-    <!-- Formulaire d'ajout de thème -->
-    <ThemeForm
-      :categoryId="categoryId"
-      :editMode="editMode"
-      :theme="selectedTheme"
-      @themeUpdated="handleThemeUpdated"
-      @cancelEdit="cancelEdit"
-    />
+    <div class="flex items-center justify-between">
+      <ThemeList
+        :themes="themes"
+        @edit="editTheme"
+        @delete="removeTheme"
+        @toggleThemeForm="toggleThemeForm"
+      />
+    </div>
+    <ThemeForm v-if="showThemeForm" :categoryId="categoryId" :editMode="editMode" :theme="selectedTheme" @themeUpdated="handleThemeUpdated" @cancelEdit="cancelEdit" />
   </div>
 </template>
 
@@ -43,17 +38,25 @@ const themes = computed(() => themesStore.getThemesByCategoryId(categoryId))
 // Références pour le thème sélectionné et le mode édition
 const selectedTheme = ref<Theme | null>(null)
 const editMode = ref(false)
+const showThemeForm = ref(false)
+
+// Fonction pour basculer l'affichage du formulaire de thème
+const toggleThemeForm = () => {
+  showThemeForm.value = !showThemeForm.value
+}
 
 // Fonction pour éditer un thème
 const editTheme = (theme: Theme) => {
   selectedTheme.value = { ...theme }  // Utiliser une copie de l'objet thème
   editMode.value = true
+  showThemeForm.value = true
 }
 
 // Fonction pour annuler l'édition
 const cancelEdit = () => {
   selectedTheme.value = null
   editMode.value = false
+  showThemeForm.value = false
 }
 
 // Fonction pour gérer la mise à jour du thème
@@ -73,3 +76,19 @@ const fetchThemes = () => {
   themesStore.themes
 }
 </script>
+
+<style scoped>
+.btn-add-theme {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-theme:hover {
+  background-color: #0056b3;
+}
+</style>

@@ -1,7 +1,9 @@
 <template>
   <div>
-    <CategoriesList />
-    <CategoriesForm :categoryId="categoryId" />
+    <div class="flex items-center justify-between">
+      <CategoriesList @toggleCategoryForm="toggleCategoryForm" />
+    </div>
+    <CategoriesForm v-if="showCategoryForm" :categoryId="categoryId" />
     <div v-if="categoryId !== undefined">
       <h3>Thèmes pour la catégorie : {{ currentCategory?.name }}</h3>
       <ul>
@@ -32,4 +34,28 @@ const categoryId = ref(route.params.id ? Number(route.params.id) : undefined)
 const themes = computed(() => categoryId.value !== undefined ? themesStore.getThemesByCategoryId(categoryId.value) : [])
 // Trouver la catégorie actuelle pour l'afficher
 const currentCategory = computed(() => categoryId.value !== undefined ? categoriesStore.categories.find(c => c.id === categoryId.value) : null)
+
+// État pour afficher ou masquer le formulaire de catégorie
+const showCategoryForm = ref(false)
+
+// Fonction pour basculer l'affichage du formulaire de catégorie
+const toggleCategoryForm = () => {
+  showCategoryForm.value = !showCategoryForm.value
+}
 </script>
+
+<style scoped>
+.btn-add-category {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-category:hover {
+  background-color: #0056b3;
+}
+</style>
