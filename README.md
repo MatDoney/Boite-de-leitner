@@ -69,32 +69,25 @@ Contient les vues principales de l'application :
 ### Étapes
 
 1. Clonez le dépôt :
-   '''
+   ```
    git clone <url-du-repo>
    cd Boite-de-leitner
-   '''
+   ```
 
 2. Installez les dépendances :
-   '''
+   ```
    npm install
-   '''
+   ```
 
 3. Lancez le serveur de développement :
-   '''
+   ```
    npm run dev
-   '''
+   ```
 
 4. Accédez à l'application dans votre navigateur à l'adresse [http://localhost:5173](http://localhost:5173).
 
-### Compilation pour la production
-   '''
+### Compilation pour la production de la PWA
+   ```
    npm run build
-   '''
+   ```
 
-## Contribution
-
-Les contributions sont les bienvenues ! Veuillez soumettre une pull request ou ouvrir une issue pour signaler des bugs ou proposer des améliorations.
-
-## Licence
-
-Ce projet est sous licence Apache 2.0. Consultez le fichier [LICENSE](LICENSE) pour plus d'informations.
