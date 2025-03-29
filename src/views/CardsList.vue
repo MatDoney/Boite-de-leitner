@@ -8,8 +8,10 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-const program_id: number = Number(route.params.programId);
-const theme_id: number = Number(route.params.themeId);
+
+// Convertir `program_id` en chaîne pour correspondre aux UUIDs
+const program_id: string | null = route.params.programId ? String(route.params.programId) : null;
+const theme_id: number | null = route.params.themeId ? Number(route.params.themeId) : null;
 
 // Store Pinia
 const cartesStore = useCardStore();
@@ -18,19 +20,37 @@ const themesStore = useThemesStore();
 
 // Récupérer le nom du thème actuel à l'aide de getThemeById
 const currentThemeName = computed(() => {
-    const theme = themesStore.getThemeById(theme_id);
+    const theme = theme_id !== null ? themesStore.getThemeById(theme_id) : null;
     return theme ? theme.name : "Thème inconnu";
 });
 
 // État pour le niveau actuel
 const currentLevel = ref(1);
 
-// Filtrer les cartes par les thèmes associés au programme ou par `themeId` si fourni
+// Récupérer les cartes en fonction du programme ou du thème
 const filteredCartes = computed(() => {
     if (theme_id) {
-        return cartesStore.cartes.filter(carte => carte.themeId === theme_id && carte.niveau === currentLevel.value);
+        // Si un thème spécifique est consulté
+        return cartesStore.cartes.filter(
+            carte => carte.themeId === theme_id && carte.niveau === currentLevel.value
+        );
     }
-    return cartesStore.cartes.filter(carte => themesStore.themes.map(theme => theme.id).includes(carte.themeId) && carte.niveau === currentLevel.value);
+
+    if (program_id) {
+        // Si un programme est consulté, récupérer les thèmes associés au programme
+        const program = revisionStore.programs.find(p => p.id === program_id); // Comparer directement en tant que chaîne
+        if (program) {
+            return program.themes
+                .map(theme => theme.id)
+                .flatMap(themeId =>
+                    cartesStore.cartes.filter(
+                        carte => carte.themeId === themeId && carte.niveau === currentLevel.value
+                    )
+                );
+        }
+    }
+
+    return []; // Aucun programme ou thème spécifique
 });
 
 // Fonction pour changer de niveau
