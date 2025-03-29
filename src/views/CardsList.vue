@@ -79,7 +79,7 @@ const goBackToThemes = () => {
 
     <div class="carousel">
       <template v-if="filteredCartes.length > 0">
-        <Card v-for="carte in filteredCartes" :key="carte.id" :id="carte.id" class="carousel-item" />
+        <Card v-for="carte in filteredCartes" :key="carte.id" :id="String(carte.id)" class="carousel-item" />
       </template>
       <template v-else>
         <div class="no-cards-card">

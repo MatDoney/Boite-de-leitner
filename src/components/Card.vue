@@ -3,13 +3,13 @@ import { ref, computed } from "vue";
 import { useCardStore } from "@/stores/CardStore.ts";
 
 // Props
-const props = defineProps<{ id: number }>();
+const props = defineProps<{ id: string }>(); // Changer le type de `id` en `string`
 
 // Store Pinia
 const cartesStore = useCardStore();
 
 // Récupération de la carte en fonction de l'ID
-const carte = computed(() => cartesStore.cartes.find(c => c.id === props.id));
+const carte = computed(() => cartesStore.cartes.find(c => String(c.id) === props.id));
 
 // État de la rotation de la carte
 const isFlipped = ref(false);

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useCardStore } from './CardStore' // Adjust the path as needed
 
 export const useThemesStore = defineStore('themes', {
   state: () => ({
@@ -51,7 +52,12 @@ export const useThemesStore = defineStore('themes', {
       const themes = localStorage.getItem('themes')
       if (themes) {
         this.themes = JSON.parse(themes)
+        console.log("Thèmes chargés :", this.themes);
       }
+    },
+    getCardsByThemeId(themeId: number) {
+      const cardStore = useCardStore(); // Importez le store des cartes
+      return cardStore.cartes.filter(card => card.themeId === themeId);
     }
   }
 })
