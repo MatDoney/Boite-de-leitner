@@ -145,7 +145,7 @@ const goBackToThemes = () => {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding: 10px;
-  width: 100%; /* Ajustement pour s'adapter à la largeur de l'écran */
+  width: 80%; /* Ajustement pour s'adapter à la largeur de l'écran */
   
   align-items: center;
   box-sizing: border-box;
@@ -231,6 +231,7 @@ const goBackToThemes = () => {
     overflow-y: auto; /* Active le défilement vertical */
     overflow-x: hidden; /* Désactive le défilement horizontal */
     gap: 10px;
+    width: 100%;
     padding: 5px;
     height: 65vh; /* Ajuste la hauteur pour éviter le chevauchement avec le header */
   }
