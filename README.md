@@ -7,19 +7,25 @@ Ce projet est une application web développée avec Vue 3 et Vite, permettant de
 Le dossier `src` contient les fichiers principaux de l'application. Voici un aperçu de sa structure et de ses fonctionnalités :
 
 ### 1. **App.vue**
+
 Le composant racine de l'application. Il inclut le menu de navigation et le routeur Vue.
 
 ### 2. **main.ts**
+
 Le point d'entrée de l'application. Il configure Vue, Pinia (gestion d'état) et Vue Router.
 
 ### 3. **assets/**
+
 Contient les fichiers statiques tels que les styles CSS et les images :
+
 - `base.css` : Définit les styles de base et les variables CSS.
 - `main.css` : Applique les styles globaux à l'application.
 - Images : `liste.png`, `maison.png`, `mallette.png`, `plus.png`, `utilisateur.png`.
 
 ### 4. **components/**
+
 Contient les composants réutilisables de l'application :
+
 - **Card.vue** : Affiche une carte de révision avec des options pour augmenter ou réinitialiser son niveau.
 - **CardForm.vue** : Formulaire pour créer ou modifier une carte.
 - **CategoriesForm.vue** : Formulaire pour ajouter ou modifier une catégorie.
@@ -32,10 +38,13 @@ Contient les composants réutilisables de l'application :
 - **icons/** : Contient des icônes SVG pour l'interface utilisateur.
 
 ### 5. **router/**
+
 - `index.ts` : Configure les routes de l'application, telles que l'accueil, les catégories, les thèmes, la création de cartes, et les programmes de révision.
 
 ### 6. **stores/**
+
 Utilise Pinia pour gérer l'état global de l'application :
+
 - **CardStore.ts** : Gère les cartes de révision (ajout, modification, suppression, sauvegarde dans le localStorage).
 - **categories.ts** : Gère les catégories (ajout, modification, suppression, sauvegarde dans le localStorage).
 - **counter.ts** : Exemple de store pour un compteur.
@@ -43,7 +52,9 @@ Utilise Pinia pour gérer l'état global de l'application :
 - **themesStore.ts** : Gère les thèmes associés aux catégories.
 
 ### 7. **views/**
+
 Contient les vues principales de l'application :
+
 - **AboutView.vue** : Page "À propos".
 - **CardCreationVue.vue** : Vue pour créer une nouvelle carte.
 - **CardsList.vue** : Affiche les cartes d'un thème ou d'un programme de révision.
@@ -63,23 +74,27 @@ Contient les vues principales de l'application :
 ## Installation et exécution
 
 ### Prérequis
+
 - Node.js (version 16 ou supérieure)
 - npm (ou yarn)
 
 ### Étapes
 
 1. Clonez le dépôt :
+
    ```
    git clone <url-du-repo>
    cd Boite-de-leitner
    ```
 
 2. Installez les dépendances :
+
    ```
    npm install
    ```
 
 3. Lancez le serveur de développement :
+
    ```
    npm run dev
    ```
@@ -87,7 +102,21 @@ Contient les vues principales de l'application :
 4. Accédez à l'application dans votre navigateur à l'adresse [http://localhost:5173](http://localhost:5173).
 
 ### Compilation pour la production de la PWA
+
+1. Création de la build
+
    ```
    npm run build
    ```
 
+2. Si ce n'est pas déja fait installation du serveur NodeJS
+
+   ```
+   npm install -g serve
+   ```
+
+3. Lancement du serveur 
+   ```
+   serve -s dist
+   ```
+4. Accédez à l'application dans votre navigateur à l'adresse [http://localhost:3000](http://localhost:3000).
