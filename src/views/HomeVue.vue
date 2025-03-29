@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { useRevisionStore } from '@/stores/revisionStore';
-import { computed } from "vue";
-import { useCardStore } from "@/stores/CardStore";
+import { useCardStore } from '@/stores/CardStore';
 
 const router = useRouter();
-const revisionStore = useRevisionStore();
-const cardStore = useCardStore();
+const revisionStore = useRevisionStore(); // Appelé dans `setup`, donc après l'initialisation de Pinia
+const cardStore = useCardStore(); // Idem
 
 // Fonction pour gérer le clic sur un programme
-const handleProgramClick = (programId: number) => {
+const handleProgramClick = (programId: string) => { // Typage corrigé pour accepter une chaîne
   router.push(`/programme/${programId}`);
 };
 
@@ -36,11 +35,16 @@ const getStatsByLevel = (programId: string) => {
 <template>
   <h1>Programmes de révision</h1>
   <ul class="program-list">
-    <li v-for="program in revisionStore.programs" :key="program.id" @click="handleProgramClick(Number(program.id))" class="program-item">
+    <li
+      v-for="program in revisionStore.programs"
+      :key="program.id"
+      @click="handleProgramClick(program.id)" 
+      class="program-item"
+    >
       <div>
-        <span>{{ program.name }}</span>
+        <span class="program-name">{{ program.name }}</span>
         <ul class="stats-list">
-          <li v-for="(count, level) in getStatsByLevel(program.id)" :key="level">
+          <li v-for="(count, level) in getStatsByLevel(program.id)" :key="level" class="stats-item">
             Niveau {{ level }} : {{ count }} cartes
           </li>
         </ul>
@@ -82,15 +86,27 @@ const getStatsByLevel = (programId: string) => {
   background-color: #e0e0e0;
 }
 
-.stats-list {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
+.program-name {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.stats-list li {
-  margin-bottom: 5px;
+.stats-list {
+  display: flex; /* Utiliser flexbox pour aligner les statistiques sur la même ligne */
+  flex-wrap: wrap; /* Permettre le retour à la ligne si nécessaire */
+  gap: 10px; /* Espacement entre les éléments */
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.stats-item {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #555;
+  white-space: nowrap; /* Empêcher le retour à la ligne dans un élément */
 }
 </style>
