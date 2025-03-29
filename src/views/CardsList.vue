@@ -68,9 +68,9 @@ const goBackToThemes = () => {
       </template>
     </div>
     <div class="level-navigation">
-      <button @click="changeLevel('prev')" :disabled="currentLevel === 1" class="nav-button">← {{ currentLevel - 1 }}</button>
+      <button @click="changeLevel('prev')" :disabled="currentLevel === 1" class="nav-button">←</button>
       <span class="current-level">Niveau {{ currentLevel }}</span>
-      <button @click="changeLevel('next')" :disabled="currentLevel === 7" class="nav-button">{{ currentLevel + 1 }} →</button>
+      <button @click="changeLevel('next')" :disabled="currentLevel === 5" class="nav-button">→</button>
     </div>
   </div>
 </template>

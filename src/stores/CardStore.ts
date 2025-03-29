@@ -18,12 +18,12 @@ export const useCardStore = defineStore('cartes', {
         // Mise à jour d'une carte (modification de la question et de la réponse)
         updateCard(id: number, question: string, reponse: string,niveau: number) {
             const card = this.cartes.find(c => c.id === id)
-            if (card && niveau <=7) {
+            if (card && niveau <=5) {
                 card.question = question
                 card.reponse = reponse
                 card.niveau = niveau
                 this.saveCards()
-            }else if (card && niveau >7) {
+            }else if (card && niveau >5) {
                 this.removeCard(card.id)
             }
         },
