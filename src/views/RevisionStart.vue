@@ -4,7 +4,7 @@
 
     <RevisionSettings 
       @updateThemes="updateThemes"
-      @updateDailyNewCards="updateDailyNewCards"
+      
       @updateProgramName="updateProgramName"
       @updateThemeLevel="updateThemeLevel"
     />

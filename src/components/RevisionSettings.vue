@@ -28,9 +28,7 @@
       </div>
     </div>
 
-    <label>Nombre de nouvelles cartes par jour :</label>
-    <input type="number" v-model="dailyNewCards" min="1" max="20" class="input-number" @input="updateDailyNewCards" />
-
+    
     <label>
       <input type="checkbox" v-model="enableNotifications" @change="handleNotificationChange" />
       Activer les notifications
